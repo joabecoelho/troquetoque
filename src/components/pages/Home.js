@@ -42,7 +42,7 @@ function Home() {
               ></div>
               <h3>{instrument.name}</h3>
               <p>
-                <span className="bold">Tempo de uso:</span> {instrument.usageTime} meses
+                <span className="bold">Tempo de uso:</span> {instrument.usageTime} mês(es)
               </p>
               {instrument.available ? (
                 <a href={`/instrument/${instrument._id}`}>Mais detalhes</a>
