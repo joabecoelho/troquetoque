@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react'
 import Input from '../../form/Input'
 import { Link } from 'react-router-dom'
+import Overlay from '../../layout/Overlay';
+import { RiLoader4Line } from 'react-icons/ri';
 
 import styles from '../../form/Form.module.css'
 
@@ -10,6 +12,7 @@ import { Context } from '../../../context/UserContext'
 function Login() {
   const [user, setUser] = useState({})
   const { login } = useContext(Context)
+  const [isLoading, setIsLoading] = useState(false)
 
   function handleChange(e) {
     setUser({ ...user, [e.target.name]: e.target.value })
@@ -17,11 +20,19 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    login(user)
+    setIsLoading(true)
+    login(user, () => {
+      setIsLoading(false)
+    })
   }
 
   return (
     <section className={styles.form_container}>
+      {isLoading && (
+        <Overlay>
+          <RiLoader4Line className={styles.loading} />
+        </Overlay>
+      )}
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <Input
