@@ -1,21 +1,31 @@
 import api from '../../utils/api'
+import { RiLoader4Line } from 'react-icons/ri';
 
-import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import styles from './Home.module.css'
 
+import Overlay from '../layout/Overlay';
+
 function Home() {
   const [instruments, setInstruments] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    
     api.get('/instruments').then((response) => {
       setInstruments(response.data.instruments)
+      setIsLoading(false);
     })
   }, [])
 
   return (
     <section>
+       {isLoading && (
+        <Overlay>
+          <RiLoader4Line className={styles.loading} />
+        </Overlay>
+      )}
       <div className={styles.instrument_home_header}>
         <h1>Escolha Um Instrumento</h1>
         <p>Veja os detalhes de cada um e entre em contato com o anunciante.</p>

@@ -1,4 +1,5 @@
 import api from '../../../utils/api'
+import { RiLoader4Line } from 'react-icons/ri';
 
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
@@ -6,6 +7,7 @@ import { useState, useEffect } from 'react'
 import styles from './Dashboard.module.css'
 
 import RoundedImage from '../../layout/RoundedImage'
+import Overlay from '../../layout/Overlay';
 
 /* hooks */
 import useFlashMessage from '../../../hooks/useFlashMessage'
@@ -14,8 +16,11 @@ function MyInstruments() {
   const [instruments, setInstruments] = useState([])
   const [token] = useState(localStorage.getItem('token') || '')
   const { setFlashMessage } = useFlashMessage()
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+  
     api
       .get('/instruments/myinstruments', {
         headers: {
@@ -25,84 +30,95 @@ function MyInstruments() {
       .then((response) => {
         setInstruments(response.data.instruments)
       })
+      .catch((error) => {
+        console.log(error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }, [token])
   
-    }, [token])
 
   async function removeInstrument(id) {
-    let msgType = 'success'
+    setIsLoading(true);
 
-    const data = await api
+    try {
+    const response = await api
       .delete(`/instruments/${id}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
       })
-      .then((response) => {
-        const updatedInstruments = instruments.filter((instrument) => instrument._id != id)
-        setInstruments(updatedInstruments)
-        return response.data
-      })
-      .catch((err) => {
-        console.log(err)
-        msgType = 'error'
-        return err.response.data
-      })
-
-    setFlashMessage(data.message, msgType)
+      const { message } = response.data
+      setFlashMessage(message, 'success')
+    } catch (err) {
+      console.log(err)
+      const { data } = err.response
+      setFlashMessage(data.message, 'error')
+    } finally {
+      setIsLoading(true);
+    }
   }
 
   async function concludeChange(id) {
     let msgType = 'success'
-
-    const data = await api
-      .patch(`/instruments/conclude/${id}`, {
+  
+    try {
+      setIsLoading(true)
+  
+      const response = await api.patch(`/instruments/conclude/${id}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
       })
-      .then((response) => {
-        return response.data
-      })
-      .catch((err) => {
-        console.log(err)
-        msgType = 'error'
-        return err.response.data
-      })
-
-    setFlashMessage(data.message + " A pagina será recarregada.", msgType)
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+  
+      setFlashMessage(response.data.message + ' A pagina será recarregada.', msgType)
+  
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000)
+    } catch (err) {
+      console.log(err)
+      msgType = 'error'
+      setFlashMessage(err.response.data.message, msgType)
+    } finally {
+      setIsLoading(false)
+    }
   }
+  
 
   async function reopenExchange(id) {
     let msgType = 'success'
-
-    const data = await api
-      .patch(`/instruments/reopen/${id}`, {
+    setIsLoading(true);
+  
+    try {
+      const response = await api.patch(`/instruments/reopen/${id}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
-      })
-      .then((response) => {
-        return response.data
-      })
-      .catch((err) => {
-        console.log(err)
-        msgType = 'error'
-        return err.response.data
-      })
-
-    setFlashMessage(data.message + " A pagina será recarregada.", msgType)
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+      });
+      const data = response.data;
+      setFlashMessage(data.message + " A pagina será recarregada.", msgType);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (err) {
+      console.log(err);
+      msgType = 'error';
+      const data = err.response.data;
+      setFlashMessage(data.message, msgType);
+    } finally {
+      setIsLoading(false);
+    }
   }
-
+  
   return (
     <section>
+      {isLoading && (
+        <Overlay>
+          <RiLoader4Line className={styles.loading} />
+        </Overlay>
+      )}
       <div className={styles.instrumentslist_header}>
         <h1>Meus Instrumentos Cadastrados</h1>
         <Link to="/instrument/add">Cadastrar Instrumento</Link>

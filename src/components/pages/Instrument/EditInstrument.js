@@ -1,4 +1,5 @@
 import api from '../../../utils/api'
+import { RiLoader4Line } from 'react-icons/ri';
 
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -6,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import styles from './AddInstrument.module.css'
 
 import InstrumentForm from '../../form/InstrumentForm'
+import Overlay from '../../layout/Overlay';
 
 /* hooks */
 import useFlashMessage from '../../../hooks/useFlashMessage'
@@ -15,8 +17,11 @@ function EditInstrument() {
   const [token] = useState(localStorage.getItem('token') || '')
   const { id } = useParams()
   const { setFlashMessage } = useFlashMessage()
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+  
     api
       .get(`/instruments/${id}`, {
         headers: {
@@ -26,7 +31,15 @@ function EditInstrument() {
       .then((response) => {
         setInstrument(response.data.instrument)
       })
+      .catch((err) => {
+        console.log(err)
+        setFlashMessage(err.response.data.message, 'error')
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [token, id])
+  
 
   async function updateInstrument(instrument) {
     let msgType = 'success'
@@ -67,6 +80,11 @@ function EditInstrument() {
 
   return (
     <section>
+      {isLoading && (
+        <Overlay>
+          <RiLoader4Line className={styles.loading} />
+        </Overlay>
+      )}
       <div className={styles.addinstrument_header}>
         <h1>Editando o Instrumento: {instrument.name}</h1>
         <p>Depois da edição os dados serão atualizados no sistema</p>

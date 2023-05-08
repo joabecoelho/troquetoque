@@ -1,12 +1,12 @@
 import api from '../../../utils/api'
-
-import { FaWhatsapp } from 'react-icons/fa';
+import { RiLoader4Line } from 'react-icons/ri';
 
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
 import styles from './InstrumentDetails.module.css'
 import RoundedImage from '../../layout/RoundedImage'
+import Overlay from '../../layout/Overlay';
 
 /* hooks */
 import useFlashMessage from '../../../hooks/useFlashMessage'
@@ -18,6 +18,7 @@ function InstrumentDetails() {
   const { id } = useParams()
   const { setFlashMessage } = useFlashMessage()
   const [token] = useState(localStorage.getItem('token') || '')
+  const [isLoading, setIsLoading] = useState(true);
 
   const widthImage = '40px'
   const heigthImage = '40px'
@@ -25,29 +26,27 @@ function InstrumentDetails() {
   useEffect(() => {
     api.get(`/instruments/${id}`).then((response) => {
       setInstrument(response.data.instrument)
+      setIsLoading(false)
     })
   }, [id])
 
   async function schedule() {
-    let msgType = 'success'
-
-    const data = await api
-      .patch(`instruments/schedule/${instrument._id}`, {
+    setIsLoading(true)
+    try {
+      const response = await api.patch(`instruments/schedule/${instrument._id}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
       })
-      .then((response) => {
-        console.log(response.data)
-        return response.data
-      })
-      .catch((err) => {
-        console.log(err)
-        msgType = 'error'
-        return err.response.data
-      })
-
-    setFlashMessage(data.message, msgType)
+      const { message } = response.data
+      setFlashMessage(message, 'success')
+    } catch (err) {
+      console.log(err)
+      const { data } = err.response
+      setFlashMessage(data.message, 'error')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
     const handleClick = () => {
@@ -60,6 +59,11 @@ function InstrumentDetails() {
 
   return (
     <>
+    {isLoading && (
+        <Overlay>
+          <RiLoader4Line className={styles.loading} />
+        </Overlay>
+      )}
       {instrument.name && (
         <section className={styles.instrument_details_container}>
           <div className={styles.instrumentdetails_header}>

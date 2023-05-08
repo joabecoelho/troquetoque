@@ -1,16 +1,21 @@
 import api from '../../../utils/api'
+import { RiLoader4Line } from 'react-icons/ri';
 
 import { useState, useEffect } from 'react'
 
 import styles from './Dashboard.module.css'
 
 import RoundedImage from '../../layout/RoundedImage'
+import Overlay from '../../layout/Overlay';
 
-function MyAdoptions() {
+function MyChanges() {
   const [instruments, setInstruments] = useState([])
   const [token] = useState(localStorage.getItem('token') || '')
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+  
     api
       .get('/instruments/mychanges', {
         headers: {
@@ -20,7 +25,14 @@ function MyAdoptions() {
       .then((response) => {
         setInstruments(response.data.instruments)
       })
+      .catch((error) => {
+        console.log(error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [token])
+  
 
   async function cancelChange() {
     instruments.available = true
@@ -28,6 +40,11 @@ function MyAdoptions() {
 
   return (
     <section>
+      {isLoading && (
+        <Overlay>
+          <RiLoader4Line className={styles.loading} />
+        </Overlay>
+      )}
       <div className={styles.instrumentslist_header}>
         <h1>Minhas Trocas</h1>
       </div>
@@ -65,4 +82,4 @@ function MyAdoptions() {
   )
 }
 
-export default MyAdoptions
+export default MyChanges

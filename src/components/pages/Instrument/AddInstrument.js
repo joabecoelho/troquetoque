@@ -1,4 +1,6 @@
 import api from '../../../utils/api'
+import { RiLoader4Line } from 'react-icons/ri';
+
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './AddInstrument.module.css'
 
 import InstrumentForm from '../../form/InstrumentForm'
+import Overlay from '../../layout/Overlay';
 
 /* hooks */
 import useFlashMessage from '../../../hooks/useFlashMessage'
@@ -14,8 +17,10 @@ function AddInstrument() {
   const [token] = useState(localStorage.getItem('token') || '')
   const { setFlashMessage } = useFlashMessage()
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
 
   async function registerInstrument(instrument) {
+    setIsLoading(true);
     let msgType = 'success'
 
     const formData = new FormData()
@@ -53,11 +58,17 @@ function AddInstrument() {
     if (msgType != 'error') {
       navigate('/instrument/myinstruments')
     }
+    setIsLoading(false);
   }
   
 
   return (
     <section>
+      {isLoading && (
+        <Overlay>
+          <RiLoader4Line className={styles.loading} />
+        </Overlay>
+      )}
       <div className={styles.addinstrument_header}>
         <h1>Cadastre um Instrumento</h1>
         <p>Depois ele ficará disponível para troca</p>
