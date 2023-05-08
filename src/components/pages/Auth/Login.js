@@ -21,10 +21,16 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault()
     setIsLoading(true)
-    login(user, () => {
-      setIsLoading(false)
-    })
+    login(user)
+      .then(() => {
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        setIsLoading(false)
+        console.error(error)
+      })
   }
+  
 
   return (
     <section className={styles.form_container}>
