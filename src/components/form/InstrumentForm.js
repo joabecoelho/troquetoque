@@ -1,0 +1,99 @@
+import { useState } from 'react'
+
+import formStyles from './Form.module.css'
+
+import Input from './Input'
+import Select from './Select'
+import Textarea from './Textarea'
+
+function InstrumentForm({ handleSubmit, instrumentData, btnText }) {
+  const [instrument, setInstrument] = useState(instrumentData || {})
+  const [preview, setPreview] = useState([])
+  const colors = ['Branco', 'Preto', 'Cinza', 'Vermelho', 'Azul', 'Verde', 'Amarelo', 'Rosa', 'Roxo', 'Lilás']
+
+  function onFileChange(e) {
+    console.log(Array.from(e.target.files))
+    setPreview(Array.from(e.target.files))
+    setInstrument({ ...instrument, images: [...e.target.files] })
+  }
+
+  function handleChange(e) {
+    setInstrument({ ...instrument, [e.target.name]: e.target.value })
+  }
+
+  function handleColor(e) {
+    setInstrument({
+      ...instrument,
+      color: e.target.options[e.target.selectedIndex].text,
+    })
+  }
+
+  const submit = (e) => {
+    e.preventDefault()
+    handleSubmit(instrument)
+  }
+
+  return (
+    <form onSubmit={submit} className={formStyles.form_container}>
+      <div className={formStyles.preview_instrument_images}>
+        {preview.length > 0
+          ? preview.map((image, index) => (
+              <img
+                src={URL.createObjectURL(image)}
+                alt={instrument.name}
+                key={`${instrument.name}+${index}`}
+              />
+            ))
+          : instrument.images &&
+            instrument.images.map((image, index) => (
+              <img
+                src={`${process.env.REACT_APP_API}/images/instruments/${image}`}
+                alt={instrument.name}
+                key={`${instrument.name}+${index}`}
+              />
+            ))}
+      </div>
+      <Input
+        text="Imagens do instrumento"
+        type="file"
+        name="images"
+        handleOnChange={onFileChange}
+        multiple={true}
+      />
+      <Input
+        text="Nome do instrumento"
+        type="text"
+        name="name"
+        placeholder="Digite o nome"
+        handleOnChange={handleChange}
+        value={instrument.name || ''}
+      />
+      <Input
+        text="Tempo de uso do instrumento (meses)"
+        type="number"
+        name="usageTime"
+        placeholder="Digite o tempo de uso"
+        handleOnChange={handleChange}
+        value={instrument.usageTime || ''}
+      />
+      <Select
+        name="color"
+        text="Selecione a cor do instrumento"
+        options={colors}
+        handleOnChange={handleColor}
+        value={instrument.color || ''}
+      />
+      <Textarea
+        text="Descrição do instrumento"
+        type="textarea"
+        name="description"
+        placeholder="Digite a descrição"
+        value={instrument.description || ''}
+        handleOnChange={handleChange}
+      />
+      <input type="submit" value={btnText} />
+    </form>
+  )
+}
+
+export default InstrumentForm

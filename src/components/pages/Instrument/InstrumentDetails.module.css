@@ -1,0 +1,102 @@
+.instrument_details_container {
+    text-align: center;
+  }
+
+  .instrument_details_container h1{
+    margin-bottom: 0.5em;
+  }
+  
+  .instrument_details_container p {
+    margin-bottom: 1em;
+  }
+  
+  .instrumentdetails_header {
+    margin-bottom: 2em;
+  }
+  
+  .instrument_images {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+  }
+  
+  .instrument_images img {
+    max-height: 200px;
+    margin-right: 1em;
+  }
+  
+  .instrument_details_container button {
+    border-radius: 8px;
+    color: #fff;
+    border: none;
+    max-width: 270px;
+    min-height: 2.5rem;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .interesse {
+    font-weight: bold;
+    color: orange;
+    font-style: inherit;
+  }
+
+  .link {
+    color: orange;
+  }
+
+  .anunciadopor{
+    margin-bottom: 1em;
+    font-size: 25px;
+  }
+
+.btnWpp {
+  width: 240px;
+  background-color: #25b456;
+  margin-left: 10px;
+}
+
+.btnWpp span {
+  margin-left: 7px;
+}
+
+  .btnWpp:hover {
+    background-color: #258f48;
+    transition: 0.1s;
+  }
+
+  .botoes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+
+  }
+
+  .btnaddminhastrocas {
+    flex: 1;
+    background-color: #ff9100;
+    transition: background-color 0.1s ease-in-out;
+    border: none;
+    margin-right: 5px;
+
+  }
+
+  @media only screen and (max-width: 580px) {
+    .botoes {
+     display: flex;
+     flex-direction: column;
+    }
+
+    .btnaddminhastrocas {
+      margin-bottom: 10px;
+      width: 14em;
+    }
+
+    .btnWpp{
+      width: 14em;
+      margin-left: 0;
+    }
+  }
+  

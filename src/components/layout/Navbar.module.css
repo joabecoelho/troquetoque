@@ -1,0 +1,98 @@
+  .navbar_logo a{
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar_logo {
+    margin-bottom: 1.4em;
+  }
+  
+  .navbar li,
+  .navbar a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s;
+    padding: .5em .8em;
+    border-radius: 5px;
+  }
+  
+  .navbar li:hover {
+    background-color: #000000;
+    color: #FFF;
+  }
+  
+  .navbar li:hover > a {
+    color: #FFF;
+  }
+
+/* CHAT GPT */
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff9100;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.navbar_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar_logo img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.navbar_logo h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.navbar_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar_content ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar_content ul li {
+  margin-right: 10px;
+}
+
+.navbar_content ul li:last-child {
+  margin-right: 0;
+}
+
+@media (max-width: 500px) {
+
+  .navbar_content li{
+    display: flex;
+    width: 61px;
+    text-align: center;
+    font-size: 10px;
+    margin: 0px 0px 10px 10px;
+  }
+
+  .navbar li:hover {
+    background-color: #ff9100;
+  }
+}
+

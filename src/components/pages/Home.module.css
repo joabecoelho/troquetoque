@@ -1,0 +1,93 @@
+.instrument_home_header {
+  margin-bottom: 2em;
+}
+
+.instrument_home_header h1 {
+  margin-bottom: 0.3em;
+}
+
+.instrument_container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.instrument_card {
+  width: 22%;
+  margin: 1.5%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.instrument_card_image {
+  background-size: cover;
+  background-position: center;
+  height: 225px;
+  width: 100%;
+  margin-bottom: 1.2em;
+}
+
+.instrument_card h3 {
+  color: #000000;
+  margin-bottom: 1em;
+  font-size: 1.6em;
+  padding: 8px;
+}
+
+.instrument_card p {
+  margin-bottom: 1em;
+}
+
+.instrument_card a {
+  border-radius: 8px;
+  color: #000000;
+  background-color: #ffa600;
+  border: none;
+  min-width: 100px;
+  padding: 15px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.instrument_card a:hover {
+  background-color: #cc8a11;
+  color: #fff;
+}
+
+.adopted_text {
+  font-weight: bold;
+  color: #25b456;
+  padding: 15px;
+}
+
+@media only screen and (max-width: 920px) {
+  .instrument_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+   }
+ 
+   .instrument_home_header{
+     text-align: center;
+     margin-top: 10px;
+   }
+
+   .instrument_container p {
+    color: orange;
+   }
+ 
+   .instrument_card {
+     width: 100%;
+     align-items: center;
+   }
+ 
+   .instrument_card_image {
+    max-width: 150px;
+    max-height: 150px;
+  } 
+}

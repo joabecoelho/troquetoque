@@ -1,0 +1,26 @@
+.form_control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.form_control label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.form_control textarea {
+    max-width: 300px;
+    min-width: 300px;
+    max-height: 200px;
+    min-height: 200px;
+    padding: 0.7em;
+    font-size: small;
+    resize: none;
+}
+
+.form_control ::placeholder{
+    font-size: small;
+    font-weight: bold;
+}
