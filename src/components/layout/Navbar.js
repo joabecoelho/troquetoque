@@ -15,7 +15,19 @@ function Navbar() {
 
   function handleClick() {
     setIsPlaying(true)
-    audioRef.current.src = "./music/serbandido.mp3"
+    audioRef.current.src = "./music/tempresente.mp3"
+    audioRef.current.play()
+  }
+
+  function handleClickRapunzel() {
+    setIsPlaying(true)
+    audioRef.current.src = "./music/rapunzel.mp3"
+    audioRef.current.play()
+  }
+
+  function handleClickCabelo() {
+    setIsPlaying(true)
+    audioRef.current.src = "./music/cabelodeabelha.mp3"
     audioRef.current.play()
   }
 
@@ -48,10 +60,10 @@ function Navbar() {
           ) : (
             <>
               <li>
-                <Link to="/login">Entrar</Link>
+                <Link to="/login" onClick={handleClickRapunzel}>Entrar</Link>
               </li>
               <li>
-                <Link to="/register">Cadastrar</Link>
+                <Link to="/register" onClick={handleClickCabelo}>Cadastrar</Link>
               </li>
             </>
           )}
