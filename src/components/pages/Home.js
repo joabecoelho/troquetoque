@@ -21,7 +21,7 @@ function Home() {
 
   return (
     <section>
-      <audio className={styles.music} src="./music/serbandido.mp3" loop autoPlay controls />
+      <audio className={styles.music} src="./music/serbandido.mp3" loop autoPlay />
        {isLoading && (
         <Overlay>
           <RiLoader4Line className={styles.loading} />
