@@ -1,5 +1,7 @@
 import api from '../../utils/api'
 import { RiLoader4Line } from 'react-icons/ri';
+import YouTube from 'react-youtube';
+
 
 import { useState, useEffect } from 'react'
 
@@ -10,6 +12,7 @@ import Overlay from '../layout/Overlay';
 function Home() {
   const [instruments, setInstruments] = useState([])
   const [isLoading, setIsLoading] = useState(true);
+  const videoId = 'https://www.youtube.com/watch?v=Pw4AhPL8dvs&t=1s';
 
   useEffect(() => {
     
@@ -21,6 +24,7 @@ function Home() {
 
   return (
     <section>
+      <YouTube videoId={videoId} className={styles.video} opts={{ playerVars: { autoplay: 1, loop: 1, controls: 0, disablekb: 1 } }} onReady={(event) => event.target.mute()} />
        {isLoading && (
         <Overlay>
           <RiLoader4Line className={styles.loading} />
