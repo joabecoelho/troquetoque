@@ -13,24 +13,6 @@ function Navbar() {
   const audioRef = useRef(null)
   const { authenticated, logout } = useContext(Context)
 
-  function handleClick() {
-    setIsPlaying(true)
-    audioRef.current.src = "./music/tempresente.mp3"
-    audioRef.current.play()
-  }
-
-  function handleClickRapunzel() {
-    setIsPlaying(true)
-    audioRef.current.src = "./music/rapunzel.mp3"
-    audioRef.current.play()
-  }
-
-  function handleClickCabelo() {
-    setIsPlaying(true)
-    audioRef.current.src = "./music/cabelodeabelha.mp3"
-    audioRef.current.play()
-  }
-
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar_content}>
@@ -42,7 +24,7 @@ function Navbar() {
         </div>
         <ul>
           <li>
-            <Link to="/" onClick={handleClick}>Trocar</Link>
+            <Link to="/">Trocar</Link>
           </li>
           {authenticated ? (
             <>
@@ -60,16 +42,15 @@ function Navbar() {
           ) : (
             <>
               <li>
-                <Link to="/login" onClick={handleClickRapunzel}>Entrar</Link>
+                <Link to="/login">Entrar</Link>
               </li>
               <li>
-                <Link to="/register" onClick={handleClickCabelo}>Cadastrar</Link>
+                <Link to="/register">Cadastrar</Link>
               </li>
             </>
           )}
         </ul>
       </div>
-      <audio ref={audioRef} onEnded={() => setIsPlaying(false)} />
     </nav>
   )
 }
