@@ -121,7 +121,7 @@ function MyInstruments() {
       )}
       <div className={styles.instrumentslist_header}>
         <h1>Meus Instrumentos Cadastrados</h1>
-        <Link to="/instrument/add">Cadastrar Instrumento</Link>
+        <Link className={styles.btnCadastrar} to="/instrument/add">Cadastrar Instrumento</Link>
       </div>
       <div className={styles.instrumentslist_container}>
         {instruments.length > 0 &&

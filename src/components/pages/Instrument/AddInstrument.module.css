@@ -20,4 +20,11 @@
       transform: rotate(360deg);
     }
   }
+
+  @media (max-width: 680px) {
+    .addinstrument_header {
+      margin-top:  110px;
+      margin-bottom: -70px;
+    }
+  }
   
