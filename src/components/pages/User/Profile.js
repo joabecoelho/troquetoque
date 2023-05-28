@@ -20,6 +20,7 @@ function Profile() {
   const [token] = useState(localStorage.getItem('token') || '')
   const { setFlashMessage } = useFlashMessage()
   const [isLoading, setIsLoading] = useState(true);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,7 +38,9 @@ function Profile() {
         console.log(error)
       })
       .finally(() => {
-        setIsLoading(false)
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
       })
   }, [token])
 

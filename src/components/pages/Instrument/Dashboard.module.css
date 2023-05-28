@@ -136,6 +136,87 @@
     font-size: 2rem;
     animation: spin 1s infinite linear;
   }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+  }
+  
+  .deleteConfirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .deleteConfirmation p {
+    margin-bottom: 10px;
+  }
+  
+  .deleteConfirmationButtons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
+  
+  .deleteConfirmationButtons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  
+  .attentionBar {
+    display: flex;
+    align-items: center;
+    background-color: #fdb557;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    margin: -20px -20px 10px -20px;
+  }
+  
+  .attentionIcon {
+    margin-right: 5px;
+    color: #000000;
+    margin-left: 10px;
+  }
+  
+  .attention {
+    color: #000000;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  .btnCancelar {
+    background-color: #a09f9f;
+  }
+
+  .btnConfirmar {
+    background-color: #fdb557;
+  }
+
+  .btnConfirmar:hover {
+    background-color: #d1984d;
+  }
+
+  .btnCancelar:hover {
+    background-color: #6b6b6b;
+  }
   
   @keyframes spin {
     from {
@@ -150,7 +231,7 @@
   @media (max-width: 680px) {
     .instrumentslist_header {
       justify-content: center;
-      margin-top: 100px;
+      margin-top: 10px;
     }
 
     .instrumentslist_header h1{
@@ -184,6 +265,7 @@
 
       .actions {
         margin-top: 20px;
+        margin-left: -50px;
       }
 
   }

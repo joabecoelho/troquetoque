@@ -19,6 +19,7 @@ function InstrumentDetails() {
   const { setFlashMessage } = useFlashMessage()
   const [token] = useState(localStorage.getItem('token') || '')
   const [isLoading, setIsLoading] = useState(true);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const widthImage = '40px'
   const heigthImage = '40px'
@@ -26,7 +27,9 @@ function InstrumentDetails() {
   useEffect(() => {
     api.get(`/instruments/${id}`).then((response) => {
       setInstrument(response.data.instrument)
-      setIsLoading(false)
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     })
   }, [id])
 
@@ -45,7 +48,7 @@ function InstrumentDetails() {
       const { data } = err.response
       setFlashMessage(data.message, 'error')
     } finally {
-      setIsLoading(false)
+        setIsLoading(false);
     }
   }
 
@@ -78,7 +81,7 @@ function InstrumentDetails() {
             alt={user.name}
             width={150}
             height={150}
-          />
+            />
             <hr style={{marginTop: '20px'}} />
           </div>
           <div className={styles.instrument_images}>
@@ -92,10 +95,12 @@ function InstrumentDetails() {
           </div>
           <p>
             <span className="bold">Tempo de uso:</span> {instrument.usageTime} meses
+            <br/><span className="bold">Cor:</span> {instrument.color}
           </p>
           <p>
             <span className="bold">Descrição:</span> {instrument.description}
           </p>
+          
           <span className={styles.interesse}>Caso tenha interesse, adicione a sua lista de <br/> <Link to="/instrument/mychanges" className={styles.interesse}>Minhas trocas</Link> e entre em contato com o anunciante!</span>
           {token ? (
             <div className={styles.botoes}>

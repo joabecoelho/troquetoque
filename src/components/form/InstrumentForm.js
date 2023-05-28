@@ -9,7 +9,7 @@ import Textarea from './Textarea'
 function InstrumentForm({ handleSubmit, instrumentData, btnText }) {
   const [instrument, setInstrument] = useState(instrumentData || {})
   const [preview, setPreview] = useState([])
-  const colors = ['Branco', 'Preto', 'Cinza', 'Vermelho', 'Azul', 'Verde', 'Amarelo', 'Rosa', 'Roxo', 'Lilás']
+  const colors = ['Amarelo', 'Azul', 'Branco', 'Cinza', 'Dourado', 'Laranja', 'Lilás', 'Marrom', 'Prateado', 'Preto', 'Rosa', 'Roxo', 'Verde', 'Vermelho'];
 
   function onFileChange(e) {
     console.log(Array.from(e.target.files))
@@ -18,7 +18,13 @@ function InstrumentForm({ handleSubmit, instrumentData, btnText }) {
   }
 
   function handleChange(e) {
-    setInstrument({ ...instrument, [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+
+    if (name === 'usageTime' && Number(value) < 1) {
+      return; // Impede que números negativos sejam atribuídos ao campo "usageTime"
+    }
+
+    setInstrument({ ...instrument, [name]: value })
   }
 
   function handleColor(e) {

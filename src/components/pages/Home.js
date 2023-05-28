@@ -10,26 +10,69 @@ import Overlay from '../layout/Overlay';
 function Home() {
   const [instruments, setInstruments] = useState([])
   const [isLoading, setIsLoading] = useState(true);
+  const [filterType, setFilterType] = useState('recent');
+  const [selectedOption, setSelectedOption] = useState('recent');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const applyFilter = (option) => {
+    setSelectedOption(option);
+  
+    let sortedInstruments = [...instruments];
+  
+    switch (option) {
+      case 'recent':
+        sortedInstruments.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+        break;
+      case 'oldest':
+        sortedInstruments.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+        break;
+      case 'longest':
+        sortedInstruments.sort((a, b) => b.usageTime - a.usageTime);
+        break;
+      case 'shortest':
+        sortedInstruments.sort((a, b) => a.usageTime - b.usageTime);
+        break;
+      case 'alphabetical': // Ordenação alfabética
+        sortedInstruments.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      default:
+        break;
+    }
+  
+    setInstruments(sortedInstruments);
+  }
 
   useEffect(() => {
     
     api.get('/instruments').then((response) => {
       setInstruments(response.data.instruments)
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     })
   }, [])
 
   return (
     <section>
-      <audio className={styles.music} src="./music/serbandido.mp3" loop muted autoPlay />
+      
        {isLoading && (
         <Overlay>
           <RiLoader4Line className={styles.loading} />
         </Overlay>
       )}
       <div className={styles.instrument_home_header}>
-        <h1>Escolha Um Instrumento</h1>
+        <h1>Escolha um instrumento</h1>
         <p>Veja os detalhes de cada um e entre em contato com o anunciante.</p>
+        <br/>
+        <div className={styles.filterCombobox}> Filtros: <br/>
+        <select value={selectedOption} onChange={(e) => applyFilter(e.target.value)}>
+          <option value="recent">Mais recente</option>
+          <option value="oldest">Mais antigo</option>
+          <option value="longest">Maior tempo de uso</option>
+          <option value="shortest">Menor tempo de uso</option>
+          <option value="alphabetical">Ordem alfabética</option> {/* Nova opção */}
+        </select>
+      </div>
       </div>
       <div className={styles.instrument_container}>
         {instruments.length > 0 &&
@@ -53,7 +96,7 @@ function Home() {
             </div>
           ))}
         {instruments.length === 0 && (
-          <p>Não há instrumentos cadastrados ou disponíveis para adoção no momento!</p>
+          <p>Não há instrumentos cadastrados ou disponíveis para troca no momento!</p>
         )}
       </div>
     </section>

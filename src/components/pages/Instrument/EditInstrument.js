@@ -18,6 +18,7 @@ function EditInstrument() {
   const { id } = useParams()
   const { setFlashMessage } = useFlashMessage()
   const [isLoading, setIsLoading] = useState(true);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   useEffect(() => {
     setIsLoading(true);
@@ -36,12 +37,15 @@ function EditInstrument() {
         setFlashMessage(err.response.data.message, 'error')
       })
       .finally(() => {
-        setIsLoading(false)
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
       })
   }, [token, id])
   
 
   async function updateInstrument(instrument) {
+    setIsLoading(true);
     let msgType = 'success'
 
     const formData = new FormData()
@@ -73,6 +77,11 @@ function EditInstrument() {
         console.log(err)
         msgType = 'error'
         return err.response.data
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 250);
       })
 
     setFlashMessage(data.message, msgType)

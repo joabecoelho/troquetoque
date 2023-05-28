@@ -6,7 +6,10 @@ export default function useFlashMessage() {
         bus.emit('flash', {
             message: msg,
             type: type,
-        })
+        });
+
+        // Role para o topo da tela
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     return { setFlashMessage }

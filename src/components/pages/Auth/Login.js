@@ -23,10 +23,14 @@ function Login() {
     setIsLoading(true)
     login(user)
       .then(() => {
-        setIsLoading(false)
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       })
       .catch((error) => {
-        setIsLoading(false)
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
         console.error(error)
       })
   }
