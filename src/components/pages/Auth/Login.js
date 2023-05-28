@@ -13,6 +13,7 @@ function Login() {
   const [user, setUser] = useState({})
   const { login } = useContext(Context)
   const [isLoading, setIsLoading] = useState(false)
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   function handleChange(e) {
     setUser({ ...user, [e.target.name]: e.target.value })

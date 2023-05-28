@@ -14,6 +14,7 @@ function Register() {
     const [user, setUser] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const {register} = useContext(Context)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     function handleChange(e) {
         setUser({ ...user, [e.target.name]: e.target.value })
