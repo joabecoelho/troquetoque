@@ -10,7 +10,6 @@ import Overlay from '../layout/Overlay';
 function Home() {
   const [instruments, setInstruments] = useState([])
   const [isLoading, setIsLoading] = useState(true);
-  const [filterType, setFilterType] = useState('recent');
   const [selectedOption, setSelectedOption] = useState('recent');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -54,7 +53,6 @@ function Home() {
 
   return (
     <section>
-      
        {isLoading && (
         <Overlay>
           <RiLoader4Line className={styles.loading} />
