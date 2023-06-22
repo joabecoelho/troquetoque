@@ -101,26 +101,32 @@ function InstrumentDetails() {
             <span className="bold">Descrição:</span> {instrument.description}
           </p>
           
-          <span className={styles.interesse}>Caso tenha interesse, adicione a sua lista de <br/> <Link to="/instrument/mychanges" className={styles.interesse}>Minhas trocas</Link> e entre em contato com o anunciante!</span>
+          
           {token ? (
-            <div className={styles.botoes}>
-            <button className={styles.btnaddminhastrocas} 
-              onClick={schedule}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#e67e22'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#ff9100'} 
-            >
-              Adicionar a Minhas trocas
-            </button>
-            <button className={styles.btnWpp} onClick={handleClick}>
-              <span>Conversar no WhatsApp</span>
-            </button>
-          </div>
-          ) : (
-            <p style={{ marginTop: '20px'}}>
-              Você precisa <Link to="/register">criar uma conta</Link> ou <Link to="/login">fazer login</Link> para
-              ter acesso ao contato do anunciante.
-            </p>
-          )}
+  <div>
+    <span className={styles.interesse}>
+      Caso tenha interesse, adicione a sua lista de <Link to="/instrument/mychanges" className={styles.interesse}>Minhas trocas</Link> e entre em contato com o anunciante!
+    </span>
+    <div  className={styles.botoes}>
+      <button className={styles.btnaddminhastrocas} 
+        onClick={schedule}
+        onMouseOver={(e) => e.target.style.backgroundColor = '#e67e22'}
+        onMouseOut={(e) => e.target.style.backgroundColor = '#ff9100'} 
+      >
+        Adicionar a Minhas trocas
+      </button>
+    
+      <button className={styles.btnWpp} onClick={handleClick}>
+        <span>Conversar no WhatsApp</span>
+      </button>
+  </div>
+  </div>
+) : (
+  <p style={{ marginTop: '20px' }}>
+    Você precisa <Link to="/register">criar uma conta</Link> ou <Link to="/login">fazer login</Link> para ter acesso ao contato do anunciante.
+  </p>
+)}
+
         </section>
       )}
     </>
